@@ -1,0 +1,16 @@
+- install next.js
+- install shadui/ui
+- add some style in global.css
+- install uploadthing for image uploaded
+- create header
+- implement Clerk for auth
+- create footer
+- create hero section
+- make the database schema for user and event 
+- make the webhooks with cleark to manage the user data with backend
+{
+	install svix
+	create webhook/ route.ts
+	
+
+}
