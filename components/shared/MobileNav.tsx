@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   Sheet,
@@ -12,10 +13,25 @@ import { Separator } from "@/components/ui/separator";
 import NavItems from "./NavItems";
 
 function MobileNav() {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  const closeSheet = () => {
+    setIsSheetOpen(false);
+  };
+
+  const toggleSheet = () => {
+    setIsSheetOpen((prev: any) => !prev);
+  };
+
+  const handleLinkClick = () => {
+    closeSheet(); // Close the sheet when a link is clicked
+    // Additional logic if needed upon link click
+  };
+
   return (
     <nav className="md:hidden">
-      <Sheet>
-        <SheetTrigger className="align-middle">
+      <Sheet open={isSheetOpen} >
+        <SheetTrigger className="align-middle" onClick={toggleSheet}>
           <Image
             src="/assets/icons/menu.svg"
             alt="menu"
@@ -33,7 +49,8 @@ function MobileNav() {
             className="cursor-pointer"
           />
           <Separator />
-          <NavItems />
+          <NavItems handleLinkClick={handleLinkClick} />
+          
         </SheetContent>
       </Sheet>
     </nav>
