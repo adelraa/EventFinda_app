@@ -8,7 +8,7 @@ import {
   Form,
   FormControl,
   FormDescription,
-  FormField,  
+  FormField,
   FormItem,
   FormLabel,
   FormMessage,
@@ -25,19 +25,30 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useRouter } from "next/navigation";
-import { createEvent } from "@/lib/actions/event.actions";
+import { createEvent, updateEvent } from "@/lib/actions/event.actions";
 import toast from "react-hot-toast";
+import { IEvent } from "@/lib/database/models/event.model";
 
 type EventFormProps = {
   userId: string;
   type: "Create" | "Update";
+  event?:IEvent,
+  eventId:string
 };
-function EventForm({ userId, type }: EventFormProps) {
+function EventForm({ userId, type , event , eventId }: EventFormProps) {
   const [files, setFiles] = useState<File[]>([]);
   const Router = useRouter();
 
   const { startUpload } = useUploadThing("imageUploader");
-  const initialValues = eventDefaultValues;
+
+  const initialValues = event && type ==='Update' ? {
+    ...event,
+    startDateTime : new Date(event.startDateTime),
+    EndDateTime :new Date(event.EndDateTime),
+    price: event.price?.toString()
+  }: eventDefaultValues;
+
+
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: initialValues,
@@ -64,6 +75,27 @@ function EventForm({ userId, type }: EventFormProps) {
           form.reset();
           toast.success("Event Created Successfully ✅");
           Router.push(`/events/${newEvent._id}`);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Please Try Again 😊");
+      }
+    }
+    if (type === "Update") {
+      try {
+        if(!eventId){
+          Router.back()
+          return;
+        }
+        const updatedEvent = await updateEvent({
+          userId,
+          event: { ...values, imageUrl: uploadedImageUrl, _id:eventId },
+          path: `/events/${eventId}`,
+        });
+        if (updatedEvent) {
+          form.reset();
+          toast.success("Event Created Successfully ✅");
+          Router.push(`/events/${updatedEvent._id}`);
         }
       } catch (error) {
         console.log(error);
@@ -319,14 +351,14 @@ function EventForm({ userId, type }: EventFormProps) {
               </FormItem>
             )}
           />
-        </div>  
+        </div>
         <Button
           type="submit"
           size="lg"
           disabled={form.formState.isSubmitting}
           className="button col-span-2 w-full"
         >
-          {form.formState.isSubmitting ? "Creating ...." : `${type} Event`}
+          {form.formState.isSubmitting ? "Submitting ...." : `${type} Event`}
         </Button>
       </form>
     </Form>

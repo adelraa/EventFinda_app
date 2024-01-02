@@ -3,6 +3,7 @@ import { formatDateTime } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import { DeleteConfirmation } from "./DeleteConfirmation";
 
 type CardProps = {
   event: IEvent;
@@ -29,7 +30,7 @@ function Card({ event, hasOrderLink, hidePrice }: CardProps) {
             />
           </Link>
 
-          {/* <DeleteConfirmation eventId={event._id} /> */}
+          <DeleteConfirmation eventId={event._id} />
         </div>
       )}
       <Link
