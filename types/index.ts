@@ -109,7 +109,7 @@ export type CreateUserParams = {
     eventId: string
     price: string
     isFree: boolean
-    buyerId: string
+    // buyerId: string
   }
   
   export type CreateOrderParams = {
