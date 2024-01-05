@@ -33,7 +33,7 @@ type EventFormProps = {
   userId: string;
   type: "Create" | "Update";
   event?:IEvent,
-  eventId:string
+  eventId?:string
 };
 function EventForm({ userId, type , event , eventId }: EventFormProps) {
   const [files, setFiles] = useState<File[]>([]);
