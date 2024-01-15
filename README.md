@@ -2,7 +2,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+My Event website is used to create events .
+
+![image](https://github.com/adelraa/EventFinda_app/assets/121555756/9df44833-a660-4095-b560-7bb64ca6b7f4)
+
 
 ```bash
 npm run dev
@@ -20,14 +23,18 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## what i used
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+react-hot-toast
+zod
+react-datepicker
+mongoose
+MongoDB
+uploadthing
+stripe-js
+clerk/nextjs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
